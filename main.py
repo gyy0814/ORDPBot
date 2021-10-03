@@ -121,8 +121,8 @@ class WSClient(WebSocketClient):
 
     def received_message(self, resp):
         resp = json.loads(str(resp))
-        pool.submit(message, resp)
-        # message(resp)
+        # pool.submit(message, resp)
+        message(resp)
 
 
 class BotWS:
@@ -201,9 +201,9 @@ class Bot:
 bot_QQ = "3185789685"  # 机器人的QQ号
 bot_APIKey = "8866666688"  # 设定的APIKey
 
-# bot_host = "192.168.3.73"  # 使用内网地址
+bot_host = "192.168.3.90"  # 使用内网地址
 # bot_host = "127.0.0.1"  # 使用本机地址
-bot_host = "mengxin.pro"  # 使用外网地址
+# bot_host = "mengxin.pro"  # 使用外网地址
 
 bot_port = "8880"  # 本地端口
 LOG_FORMAT = "%(asctime)s [%(levelname)s][line %(lineno)s] - %(message)s "

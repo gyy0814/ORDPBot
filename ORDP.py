@@ -259,7 +259,8 @@ def sql_jcxx(input):
             i = 0
             strr = ""
             while i < len(results):
-                strrr = f"机车：{results[i][0]} 配属：{results[i][1]} 整备率：{results[i][2]}\r\n"
+                # strrr = f"机车：{results[i][0]} 配属：{results[i][1]} 整备率：{results[i][2]}\r\n"
+                strrr = f"机车：{results[i][0]} 配属：{results[i][1]} 整备率：{'***'}\r\n"
                 strr = strr + strrr
                 i = i + 1
             db.close()
@@ -747,12 +748,17 @@ def sql_gdcx():
             else:
                 lb[sj] = 1
             i = i + 1
-        sql = f'SELECT * FROM sijixinxi WHERE iden = "{str(max(lb, key=lb.get))}";'
-        # 执行SQL语句
-        cursor.execute(sql)
-        # 获取所有记录列表
-        results1 = cursor.fetchall()
-        strr = f"今天停站最多的司机是{results1[0][1]}|{results1[0][3]}，共到达{lb[max(lb, key=lb.get)]}站\r\n"
+        while True:
+            sql = f'SELECT * FROM sijixinxi WHERE iden = "{str(max(lb, key=lb.get))}";'
+            # 执行SQL语句
+            cursor.execute(sql)
+            # 获取所有记录列表
+            results1 = cursor.fetchall()
+            if results1:
+                strr = f"今天停站最多的司机是{results1[0][1]}|{results1[0][3]}，共到达{lb[max(lb, key=lb.get)]}站\r\n"
+                return strr
+            else:
+                del lb[str(max(lb, key=lb.get))]
     else:
         strr = f"今天还没有司机到达车站\r\n"
     ############################################################################################################
